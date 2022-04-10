@@ -20,6 +20,9 @@ import Clouds from '../../assets/clouds.png'
 import RainyNight from '../../assets/rain-night.png'
 import Wind from '../../assets/wind.png'
 import WeekComponent from '../../components/week/week.component'
+import Haze from '../../assets/hail.png'
+import { ReactComponent as ArrowDown } from '../../assets/arrowdown.svg'
+import ScrollDown from '../../components/scrollDown/scrollDown.component'
 
 // import {useDebounce} from 'use-debounce'
 
@@ -50,7 +53,7 @@ function SearchPage() {
          setInput("")
       
         }
-        console.log(forecastResults)
+        // console.log(window.getBoundingClientRect())
       
 
     const colors = [
@@ -122,14 +125,8 @@ function SearchPage() {
             
         )
     }
-   
-   
-    let [ el1, el2, el3, el4, el5, el6, el7, el8, el9, el10, el11, el12, el13, el14, el15, el16, el17,el18,el19, el20 ]=[]
+    // const height = window.innerHeight
 
-    // forecastResults?.list.map((f, i) => {
-        
-       
-    // });
    
     //---------------------------------WEATHER IMAGE-------------------------------------------------
     
@@ -168,6 +165,10 @@ function SearchPage() {
     if (results?.weather[ 0 ].description === 'clear sky' && timePeriod === 'morning') {
         weatherImg=Sun
     }
+    if ( toFahrenheit(results?.main.temp)<1) {
+        weatherImg = Snow
+        
+    }
     if (results?.weather[ 0 ].description === 'light rain' && timePeriod === 'morning') {
         weatherImg=Rain
     }
@@ -192,6 +193,9 @@ function SearchPage() {
     if (results?.weather[ 0 ].description === 'few clouds') {
         weatherImg=Clouds
     }
+    if (results?.weather[ 0 ].description === 'haze') {
+        weatherImg = Haze
+    }
    
     return (
         <div className='search-page'  style={generateBackgroundGradient(colors[num])}>
@@ -210,8 +214,12 @@ function SearchPage() {
                 <img src={weatherImg} />
                 <p className='temperature'> { toFahrenheit(results?.main.temp) }°C </p>
                 
+            <ScrollDown />
             </div>
+            {/* <div className='title'><ArrowDown className='icon' /></div> */}
+            
             <h1 className='title'>Weather Forecast</h1>
+            
             <WeekComponent data={forecastResults} />
          
         </div>

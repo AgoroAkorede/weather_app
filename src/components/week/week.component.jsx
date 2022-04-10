@@ -1,6 +1,7 @@
 import React from 'react'
-import Clouds from '../../assets/clouds.png'
 import './week.styles.scss'
+
+
 
 function WeekComponent({ data }) {
     const dateMaker = (value) => {
@@ -20,6 +21,14 @@ function WeekComponent({ data }) {
 
     }
     console.log(dateMaker(1))
+    const temperatureEffect = (value) => {
+        return (
+            {
+                position:'absolute',
+                top: `${value*1.5}rem`
+            }
+         )
+     }
 
     
     return (
@@ -32,9 +41,14 @@ function WeekComponent({ data }) {
                             <div className='date'>{(dateMaker(futureWeather.date)).substr(8) }</div>
                         { futureWeather.hour.map((weather) => (
                             <div className='content'>
-                                <span>{(weather.time).substr(11,20)}</span>
+                                <span className='time'>{(weather.time).substr(11,20)}</span>
                                 <img src={ weather.condition.icon } alt='weather icon' />
-                                    <p>{ weather.temp_c}°C </p>
+                                <div>
+                                    <div className='dot' style={ temperatureEffect(weather.temp_c) }>.</div>
+                                </div>
+                                
+                                <p className='temperature'>{ weather.temp_c }°C </p>
+                                <p className='temperature'>{ weather.condition.text} </p>
                             </div>
                         ))}
                       

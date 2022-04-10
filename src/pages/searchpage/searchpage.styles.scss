@@ -1,3 +1,7 @@
+$tablet-width:768px;
+$desktop-width:1024px;
+$phone-width:400px;
+
 .search-page{
     background-image: linear-gradient(45deg, hsl(32, 94%, 51%), hsl(32, 94%, 81%));
     width:100%;
@@ -8,8 +12,8 @@
     position: relative;
  
     .search-box{
-        height: 2.5rem;
-        width: 46vw;
+        height: 3rem;
+        width: 50vw;
         padding:1em;
         border-radius: 15px;
         -webkit-border-radius: 15px;
@@ -25,7 +29,7 @@
         justify-content: center;
         align-items: center;
         margin-top: 2rem;
-        margin-left:20%;
+        margin-left:25%;
         background-color:white;
         position: sticky;
 
@@ -57,7 +61,13 @@
         font-weight:100;
         font-stretch:expanded;
         letter-spacing: 10px;
+        @media (max-width:#{$phone-width}){
+            font-size:2rem;
+        }
+        @media (min-width:#{$phone-width}) and (max-width:#{$tablet-width})  {
+            font-size:2.5rem;
     }
+}
 
     img{
         height: 10rem;
@@ -97,9 +107,23 @@
     margin:2rem;
     padding: 20px;
     position: relative;
+    // min-height: 100vh;
+    // width: 100vw;
+ 
+    .dot{
+        display: flex;
+        background-color: rgb(61, 61, 61);
+        height: .25rem;
+        width: .25rem;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        // margin:1rem;
+}
 
     .date{
-      
         margin: 20px;
         font-size: 1.75rem;
         font-weight: 1000;
@@ -107,6 +131,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+       
+        @media (max-width:#{$phone-width}){
+            font-size:1.2rem;
+        }
+        @media (min-width:#{$phone-width}) and (max-width:#{$tablet-width})  {
+            font-size:1.35rem;
+    }
 }
 
     &::-webkit-scrollbar{
@@ -126,16 +157,16 @@
         justify-content:center;
         align-items: center;
         flex-direction: column;
-        height: 10rem;
+        height: 15rem;
+        margin: 2rem;
+        
         .time{
-            font-size:1.3rem;
+            font-size:1rem;
         }
         .temperature{
-            font-size:1.15rem;
+            font-size:1rem;
         }
-        .dot-icon{
-            height: 1rem;
-        }
+      
     }
     img{
         height:8rem;
@@ -145,4 +176,16 @@
 .title{
     display:flex;
     justify-content: center;
+    margin: 1.25rem;
+    position: sticky;
+    color:transparent;
+    button{
+        background-color:transparent;
+        border: none;
+        cursor: pointer;
+    }
+}
+.icon{
+    height: 3rem;
+    margin: 1.25rem;
 }
