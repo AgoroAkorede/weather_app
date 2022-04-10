@@ -3,23 +3,36 @@ import Clouds from '../../assets/clouds.png'
 import './week.styles.scss'
 
 function WeekComponent({ data }) {
-    const toFahrenheit = (value) => {
+    const dateMaker = (value) => {
+        if (value) {
+            return `${value}TH`
+        }
+        if (value ===3 || value===23) {
+            return `${value}RD`
+        }
 
-        value=Math.floor( value -273.15)
-        
-        return value
+        if (value === 2 || value===22) {
+            return `${value}ND`
+        }
+        if (value === 1 || value===21) {
+            return `${value}ST`
+        }
+
     }
+    console.log(dateMaker(1))
+
+    
     return (
 
-        <div className='content'>
+        <div>
             {
-                data.forecastday.map((futureWeather) => (
-                    <div>
-                     <div key={futureWeather.date_epoch}>
-                        <div></div>
+                data?.forecast.forecastday.map((futureWeather) => (
+                    <div  className='forecast'>
+                        <div key={ futureWeather.date_epoch } className='forecast-results'>
+                            <div className='date'>{(dateMaker(futureWeather.date)).substr(8) }</div>
                         { futureWeather.hour.map((weather) => (
                             <div className='content'>
-                                <span>{weather.time}</span>
+                                <span>{(weather.time).substr(11,20)}</span>
                                 <img src={ weather.condition.icon } alt='weather icon' />
                                     <p>{ weather.temp_c}°C </p>
                             </div>

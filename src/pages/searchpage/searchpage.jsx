@@ -50,7 +50,7 @@ function SearchPage() {
          setInput("")
       
         }
-        console.log(forecastResults.forecast)
+        console.log(forecastResults)
       
 
     const colors = [
@@ -212,7 +212,7 @@ function SearchPage() {
                 
             </div>
             <h1 className='title'>Weather Forecast</h1>
-            <WeekComponent data={forecastResults.forecast} />
+            <WeekComponent data={forecastResults} />
          
         </div>
     )
