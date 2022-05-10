@@ -19,7 +19,11 @@ import CloudyNight from '../../assets/cloudy-night.png'
 import Clouds from '../../assets/clouds.png'
 import RainyNight from '../../assets/rain-night.png'
 import Wind from '../../assets/wind.png'
+
 import WeekComponent from '../../components/week/week.component'
+import DayComponent from '../../components/day/day.component'
+import ChartComponent from '../../components/chart/chart.component'
+
 import Haze from '../../assets/hail.png'
 import { ReactComponent as ArrowDown } from '../../assets/arrowdown.svg'
 import ScrollDown from '../../components/scrollDown/scrollDown.component'
@@ -32,16 +36,13 @@ function SearchPage() {
     const [ input, setInput ] = useState("")
     const [ {term}, dispatch ] = useResultContext();
     const { results } = WeatherApi(term);
-  
-   
+    const [showResults, setShowResults]=useState(false)  
     const { forecastResults } = ForecastApi(term)
     
 
     let weatherImg
     let num
     let timePeriod
-  
-    
      const search = e => {
             e.preventDefault();
         
@@ -54,6 +55,13 @@ function SearchPage() {
       
         }
         // console.log(window.getBoundingClientRect())
+       const searchEffect=()=>{
+           return(`
+            style={
+                width:'50vw',
+                border:'solid 5px blue'
+            }`)
+        }
       
 
     const colors = [
@@ -198,30 +206,44 @@ function SearchPage() {
     }
    
     return (
-        <div className='search-page'  style={generateBackgroundGradient(colors[num])}>
-            <form className='search-box' onSubmit={search}>
-                <input
-                 placeholder='Enter a Particular city'
-                value={input}
-                onChange={e=>setInput(capitalize(e.target.value)) }
-                type='text' />
-            </form>
-            <div className='search-results'>
-                <SetClock /> 
-            
-                <h1 className='city-name'>{ term }, { results?.sys.country}</h1>
-                <p className='weather-description'>{ results?.weather[ 0 ].description }</p>
-                <img src={weatherImg} />
-                <p className='temperature'> { toFahrenheit(results?.main.temp) }°C </p>
+        <div className='search-page' style={ generateBackgroundGradient(colors[ num ]) }>
+            {  !showResults ? <div>
+                <form className='search-box' onSubmit={search}>
+                    <input
+                    placeholder='Enter a Particular city'
+                    value={input}
+                    onChange={e=>setInput(capitalize(e.target.value)) 
+                    }
+                    type='text' />
+                </form>
+                <div className='search-results'>
+                    <SetClock /> 
                 
-            <ScrollDown />
+                    <h1 className='city-name'>{ term }, { results?.sys.country}</h1>
+                    <p className='weather-description'>{ results?.weather[ 0 ].description }</p>
+                    <img src={weatherImg} />
+                    <p className='temperature'> { toFahrenheit(results?.main.temp) }°C </p>
+                
+                </div>
+                <DayComponent data={ forecastResults } />
             </div>
-            {/* <div className='title'><ArrowDown className='icon' /></div> */}
-            
-            <h1 className='title'>Weather Forecast</h1>
-            
-            <WeekComponent data={forecastResults} />
+            : null
+            }
+            <button className="details_button" onClick={()=>setShowResults(!showResults)}>
+                <ArrowDown className="arrow_icon" />
+            </button>
+
          
+            {
+                showResults ?
+                    <div className="forecast">
+                        <h1 className='title'>{ term }, { results?.sys.country}</h1>
+                        <h1 className='title'>Weather Forecast</h1>
+                        <WeekComponent data={ forecastResults } />
+                        {/* <ChartComponent /> */}
+                    </div>
+                    : null
+            }
         </div>
     )
 }

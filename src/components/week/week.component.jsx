@@ -1,7 +1,6 @@
 import React from 'react'
 import './week.styles.scss'
-
-
+import ChartComponent from '../../components/chart/chart.component'
 
 function WeekComponent({ data }) {
     const dateMaker = (value) => {
@@ -20,6 +19,7 @@ function WeekComponent({ data }) {
         }
 
     }
+    console.log(data)
     console.log(dateMaker(1))
     const temperatureEffect = (value) => {
         return (
@@ -29,9 +29,9 @@ function WeekComponent({ data }) {
             }
          )
      }
-
     
     return (
+        
 
         <div>
             {
@@ -44,7 +44,11 @@ function WeekComponent({ data }) {
                                 <span className='time'>{(weather.time).substr(11,20)}</span>
                                 <img src={ weather.condition.icon } alt='weather icon' />
                                 <div>
-                                    <div className='dot' style={ temperatureEffect(weather.temp_c) }>.</div>
+                               
+                                    {/* {
+                                        <ChartComponent dataAPi={ weather} time={ (weather.time).substr(11, 20) } />
+                                    } */}
+                                    {/* <ChartComponent /> */}
                                 </div>
                                 
                                 <p className='temperature'>{ weather.temp_c }°C </p>
@@ -53,10 +57,15 @@ function WeekComponent({ data }) {
                         ))}
                       
                         </div>
+
                      </div>
                 ))
+                
             }
 
+            {
+                <ChartComponent dataAPi='[12,24,25,26,15,89]' time='[]' />
+        }
         </div>
     )
 }

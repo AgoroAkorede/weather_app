@@ -7,13 +7,13 @@ $phone-width:400px;
     width:100%;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    overflow-y: hidden;
+    height: 100vh;
+    overflow-x: hidden;
     position: relative;
  
     .search-box{
         height: 3rem;
-        width: 50vw;
+        width: 40vw;
         padding:1em;
         border-radius: 15px;
         -webkit-border-radius: 15px;
@@ -45,6 +45,24 @@ $phone-width:400px;
             outline: none;
         }
     }
+
+    .details_button{
+        background-color: transparent;
+        border: none;
+        color: hsl(0, 0%, 91%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 99vw;
+        font-size: 1.5rem;
+        cursor: pointer;
+        // position: absolute;
+        // bottom:10%;
+
+        .arrow_icon{
+            height: 2rem;
+        }
+    }
     
 }
 .search-results{
@@ -53,7 +71,7 @@ $phone-width:400px;
     flex-direction:column;
     justify-content: center;
     align-items: center;
-    padding: 3rem;
+    padding: 2rem;
 
     .city-name{
         margin:0;
@@ -139,6 +157,17 @@ $phone-width:400px;
             font-size:1.35rem;
     }
 }
+.forecast{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title{
+        display: flex;
+        justify-content: center;
+        color: hsl(0, 0%, 91%);
+    }
+}
 
     &::-webkit-scrollbar{
     //   width: 7px;
@@ -178,7 +207,7 @@ $phone-width:400px;
     justify-content: center;
     margin: 1.25rem;
     position: sticky;
-    color:transparent;
+    // color:transparent;
     button{
         background-color:transparent;
         border: none;
