@@ -207,14 +207,23 @@ $phone-width:400px;
     justify-content: center;
     margin: 1.25rem;
     position: sticky;
+    color: hsl(0, 0%, 91%);
     // color:transparent;
     button{
         background-color:transparent;
         border: none;
         cursor: pointer;
+        svg{
+            color: hsl(0, 0%, 91%);
+        }
     }
 }
 .icon{
     height: 3rem;
     margin: 1.25rem;
+}
+.chart0{
+    // position:absolute;
+    // top: 0;
+    // left: 0;
 }

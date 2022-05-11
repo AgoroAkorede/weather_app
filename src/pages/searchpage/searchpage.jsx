@@ -35,6 +35,7 @@ import './searchpage.styles.scss'
 function SearchPage() {
     const [ input, setInput ] = useState("")
     const [ {term}, dispatch ] = useResultContext();
+   
     const { results } = WeatherApi(term);
     const [showResults, setShowResults]=useState(false)  
     const { forecastResults } = ForecastApi(term)
