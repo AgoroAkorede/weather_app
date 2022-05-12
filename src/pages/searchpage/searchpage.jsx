@@ -19,12 +19,14 @@ import CloudyNight from '../../assets/cloudy-night.png'
 import Clouds from '../../assets/clouds.png'
 import RainyNight from '../../assets/rain-night.png'
 import Wind from '../../assets/wind.png'
+import Haze from '../../assets/hail.png'
 
 import WeekComponent from '../../components/week/week.component'
 import DayComponent from '../../components/day/day.component'
 import ChartComponent from '../../components/chart/chart.component'
+import useGeolocation from '../../components/Geolocation'
 
-import Haze from '../../assets/hail.png'
+
 import { ReactComponent as ArrowDown } from '../../assets/arrowdown.svg'
 import ScrollDown from '../../components/scrollDown/scrollDown.component'
 
@@ -35,12 +37,13 @@ import './searchpage.styles.scss'
 function SearchPage() {
     const [ input, setInput ] = useState("")
     const [ {term}, dispatch ] = useResultContext();
-   
     const { results } = WeatherApi(term);
     const [showResults, setShowResults]=useState(false)  
     const { forecastResults } = ForecastApi(term)
-    
+    const position = useGeolocation()
+    console.log(position.coordinates)
 
+   
     let weatherImg
     let num
     let timePeriod
@@ -55,7 +58,6 @@ function SearchPage() {
          setInput("")
       
         }
-        // console.log(window.getBoundingClientRect())
        const searchEffect=()=>{
            return(`
             style={
@@ -63,8 +65,6 @@ function SearchPage() {
                 border:'solid 5px blue'
             }`)
         }
-      
-
     const colors = [
         'linear-gradient(45deg, hsl(256, 73%, 60%), hsl(256, 73%, 90%))', //0
         'linear-gradient(45deg, hsl(189, 73%, 60%), hsl(189, 73%, 90%))', //1
@@ -205,7 +205,7 @@ function SearchPage() {
     if (results?.weather[ 0 ].description === 'haze') {
         weatherImg = Haze
     }
-   
+  
     return (
         <div className='search-page' style={ generateBackgroundGradient(colors[ num ]) }>
             {  !showResults ? <div>
@@ -226,22 +226,22 @@ function SearchPage() {
                     <p className='temperature'> { toFahrenheit(results?.main.temp) }°C </p>
                 
                 </div>
-                <DayComponent data={ forecastResults } />
+                {/* <DayComponent data={ forecastResults } /> */}
             </div>
             : null
             }
             <button className="details_button" onClick={()=>setShowResults(!showResults)}>
                 <ArrowDown className="arrow_icon" />
             </button>
-
-         
             {
                 showResults ?
                     <div className="forecast">
-                        <h1 className='title'>{ term }, { results?.sys.country}</h1>
+                        <h1 className='title'>{ term }, { results?.sys.country }</h1>
+                            <div>
+                                <p>{results.wind.speed } km/h</p>
+                            </div>
                         <h1 className='title'>Weather Forecast</h1>
                         <WeekComponent data={ forecastResults } />
-                        {/* <ChartComponent /> */}
                     </div>
                     : null
             }

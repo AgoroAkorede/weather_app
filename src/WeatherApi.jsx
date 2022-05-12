@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react"
+// import FirstCall from './FirstCall'
+
 const API_KEY = "31a8a9b882eebee727a896627936817a"
     // `https://api.openweathermap.org/data/2.5/weather?q=Lagos&appid=31a8a9b882eebee727a896627936817a`
     // `http://api.openweathermap.org/data/2.5/forecast?id={city-id}&appid=31a8a9b882eebee727a896627936817a`
+// const { firstCallResults } = FirstCall()
+//     console.log(firstCallResults)
+
 
 const WeatherApi = (cityName) => {
     const [ results, setResults ] = useState(null);
