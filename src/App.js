@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Routes, Navigate,useNavigate,useMatch } from 'react-router-dom'
 
 import SearchPage from './pages/searchpage/searchpage'
+import ErrorPage from './pages/errorpage/error'
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path='/search' element={ <SearchPage /> } />
         <Route path='/' element={ <SearchPage /> } />
+        <Route path='/404' element={ <ErrorPage /> } />
   
       </Routes>
        

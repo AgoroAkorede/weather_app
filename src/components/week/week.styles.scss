@@ -1,6 +1,6 @@
 .forcast{
     display:grid;
-    grid-auto-flow:row;
+    grid-auto-flow:column;
     overflow-x:scroll;
     overscroll-behavior:contain;
     display:grid;

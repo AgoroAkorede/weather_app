@@ -4,7 +4,8 @@ import './clock.styles.scss'
 function SetClock() {
     const [ date, SetDate ] = useState(new Date());
     const dateBuilder = (d) => {
-        const days = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
+        const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ]
+        
         const months = [ 'January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
         
         let day=days[d.getDay()]
@@ -27,7 +28,8 @@ function SetClock() {
         return (
             <div className='clock'>
                 { date.toLocaleTimeString() }
-                <div>{ dateBuilder(date)}</div>
+                <div>{ dateBuilder(date) }</div>
+                {/* <div>{dateBuilder(date++) }</div> */}
             </div>
         )
 }

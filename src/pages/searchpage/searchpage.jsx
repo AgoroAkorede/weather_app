@@ -1,12 +1,15 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
 import { useResultContext } from '../../ResultProvider'
-import {ReactComponent as Dot } from '../../assets/dot.svg'
 import WeatherApi from '../../WeatherApi'
 import ForecastApi from '../../ForecastApi'
+import FirstCall from '../../FirstCall'
+
 import { actionTypes } from '../../reducer'
 import SetClock from '../../components/clock'
-import Cloud from '../../assets/cloud.png'
+
+// ------------------Cloud Images --------------------
+
 import HeavyRain from '../../assets/heavy-rain.png'
 import OvercastClouds from '../../assets/overcast clouds.png'
 import Rain from '../../assets/rain.png'
@@ -23,11 +26,13 @@ import Haze from '../../assets/hail.png'
 
 import WeekComponent from '../../components/week/week.component'
 import DayComponent from '../../components/day/day.component'
-import ChartComponent from '../../components/chart/chart.component'
 import useGeolocation from '../../components/Geolocation'
+import ExtraInfo from '../../components/extraInfo/ExtraInfo'
 
-
+import {ReactComponent as PressureIcon } from '../../assets/pressure.svg'
 import { ReactComponent as ArrowDown } from '../../assets/arrowdown.svg'
+import { ReactComponent as WindIcon } from '../../assets/wind.svg'
+import { ReactComponent as HumidityIcon } from '../../assets/humidity.svg'
 import ScrollDown from '../../components/scrollDown/scrollDown.component'
 
 // import {useDebounce} from 'use-debounce'
@@ -41,6 +46,14 @@ function SearchPage() {
     const [showResults, setShowResults]=useState(false)  
     const { forecastResults } = ForecastApi(term)
     const position = useGeolocation()
+    
+    const { FirstCallResults } = FirstCall(
+        {
+            lat: position.coordinates.lat,
+            lng: position.coordinates.lng
+        })
+   
+    console.log(FirstCallResults)
     console.log(position.coordinates)
 
    
@@ -134,7 +147,16 @@ function SearchPage() {
             
         )
     }
-    // const height = window.innerHeight
+    
+    const dayOfTheWeek = (day) => {
+        const days = [ 'Mon', 'Tue', 'Wed', 'Thur', 'Fri' ];
+
+        return days[new Date(`${day}`).getDay()]
+    }
+    
+
+    
+        // const height = window.innerHeight
 
    
     //---------------------------------WEATHER IMAGE-------------------------------------------------
@@ -142,9 +164,6 @@ function SearchPage() {
     if ( results?.weather[ 0 ].description === 'overcast clouds' && toFahrenheit(results?.main.temp)<5 && timePeriod === 'evening' ) {
         weatherImg = Snow
     }
-    
-   
-   
     if (results?.weather[ 0 ].description === 'broken clouds' && timePeriod === 'morning') {
         weatherImg = OvercastClouds
     }
@@ -237,8 +256,26 @@ function SearchPage() {
                 showResults ?
                     <div className="forecast">
                         <h1 className='title'>{ term }, { results?.sys.country }</h1>
-                            <div>
-                                <p>{results.wind.speed } km/h</p>
+
+                            <div className="extra_info-parent">
+                                
+                            <ExtraInfo
+                                info={ `Wind Speed ${results.wind.speed}km/h` } 
+                            />
+                            <WindIcon className="icon" />
+                             
+                               <ExtraInfo
+                                info={ `Wind Angle Direction ${results.wind.deg }deg` } 
+                            />
+                            <WindIcon className="icon" />
+                              <ExtraInfo
+                                info={ `Humidity ${results.main.humidity }%` } 
+                            />
+                            <HumidityIcon className="icon" />
+                             <ExtraInfo
+                                info={ `Pressure ${results.main.pressure }` } 
+                            />
+                            <PressureIcon className="icon" />
                             </div>
                         <h1 className='title'>Weather Forecast</h1>
                         <WeekComponent data={ forecastResults } />

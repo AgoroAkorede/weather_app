@@ -159,9 +159,13 @@ function WeekComponent({ data }) {
         ]
 
     }
-)
-    
-    
+    )
+    const dayOfTheWeek = (day) => {
+        const days = [ 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun' ];
+
+        return days[new Date(`${day}`).getDay()]
+    }
+
     return (
         <div>
             {
@@ -169,7 +173,7 @@ function WeekComponent({ data }) {
                     <div  className='forecast'>
                         <div key={ futureWeather.date_epoch } className='forecast-results'>
                           
-                            <div className='date'>{(dateMaker(futureWeather.date)).substr(8) }</div>
+                            <div className='date'>{(dayOfTheWeek(futureWeather.date))}</div>
                     
                         { futureWeather.hour.map((weather) => (
                             <div className='content'>
