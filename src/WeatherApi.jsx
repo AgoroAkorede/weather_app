@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom"
 const API_KEY = "31a8a9b882eebee727a896627936817a"
 
 const WeatherApi = (cityName) => {
     const [ results, setResults ] = useState(null);
-
+    const navigate = useNavigate()
+    
     useEffect(() => {
         const fetchApi = async () => {
             fetch(
@@ -11,7 +13,7 @@ const WeatherApi = (cityName) => {
                 `)
                 .then(response => response.json())
                 .then(result => { setResults(result) })
-                .catch((err) => console.error(err))
+                .catch( ()=>navigate('/404'))
         }
         fetchApi()
     }, [ cityName ])

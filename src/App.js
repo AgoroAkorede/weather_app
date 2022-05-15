@@ -13,6 +13,7 @@ const App = () => {
         <Route path='/search' element={ <SearchPage /> } />
         <Route path='/' element={ <SearchPage /> } />
         <Route path='/404' element={ <ErrorPage /> } />
+        <Route path='*' element={ <ErrorPage /> } />
   
       </Routes>
        

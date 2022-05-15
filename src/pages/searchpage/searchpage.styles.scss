@@ -238,13 +238,13 @@ $phone-width:400px;
 .extra_info-parent{
     display:grid;
     width: 105%;
-    background-color: hsla(0, 0%, 51%, 0.226);
+    // background-color: hsla(0, 0%, 51%, 0.226);
     place-content: center;
     padding: 1rem;
     height: 30vh;
     border-radius: 5rem;
-    color: #ffffff;
-    font-size: 1.25rem;
+    color: hsl(0, 0%, 100%);
+    font-size: 1.5rem;
     grid-template-columns: 20% 20% 20% 20%;
     grid-template-rows: auto auto;
     //grid-gap: 50px;
